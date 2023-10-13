@@ -1,0 +1,42 @@
+import math
+
+# Function to check if a number is prime
+def is_prime(num):
+    if num <= 1:
+        return False
+    if num <= 3:
+        return True
+    if num % 2 == 0 or num % 3 == 0:
+        return False
+    i = 5
+    while i * i <= num:
+        if num % i == 0 or num % (i + 2) == 0:
+            return False
+        i += 6
+    return True
+
+# Function to find the smallest prime number that satisfies the condition
+def find_smallest_prime(numbers):
+    q = min(numbers)
+    
+    for p in range(q + 1, 10**10):
+        if is_prime(p):
+            is_valid = True
+            for number in numbers:
+                if number != q and p % number != q:
+                    is_valid = False
+                    break
+            if is_valid:
+                return p
+
+    return "None"
+
+# Read input
+input_numbers = list(map(int, input().split()))
+
+n = input_numbers[0]
+distinct_numbers = input_numbers[1:]
+
+# Find and print the result
+result = find_smallest_prime(distinct_numbers)
+print(result)
